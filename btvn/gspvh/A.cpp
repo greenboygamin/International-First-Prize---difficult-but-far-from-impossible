@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define task "quyhoachdong"
+#define el "\n"
+#define pb push_back
+#define MASK(i) (1 << (i))
+#define BIT(x, i) (((x) >> (i)) & 1)
+
+typedef long long int ll;
+typedef long double ld;
+typedef vector<pair<ll, ll>> vpll;
+typedef vector<long long> vll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+typedef vector<pii> vpii;
+typedef pair<ll, ll> pll;
+typedef stack<ll> sll;
+typedef queue<ll> qll;
+typedef deque<ll> dqll;
+typedef priority_queue<ll> pqll;
+const ll N = 1e6 + 7;
+const ll M = 5e3 + 7;
+const ll B = 1e6;
+const ll INF = 1e18;
+const ll MOD = 1e6;
+
+int a, b, c, m;
+
+void Task() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    if (fopen(task ".INP", "r")) {
+        freopen(task ".INP", "r", stdin);
+        freopen(task ".OUT", "w", stdout);
+    }
+}
+
+void Solve() {
+    while (cin >> a >> b >> c >> m){
+        if (m > a + b + c) {
+            cout << "Yes" << el;
+            continue;
+        }
+        if (a == 0 || b == 0 || c == 0) {
+            cout << "Yes" << el;
+            continue;
+        }
+        if (m < 3) {
+            cout << "Yes" << el;
+            continue;
+        }
+        cout << "No" << el;
+    }
+    
+
+}
+
+int main() {
+    Task();
+    Solve();
+    return 0;
+}
+

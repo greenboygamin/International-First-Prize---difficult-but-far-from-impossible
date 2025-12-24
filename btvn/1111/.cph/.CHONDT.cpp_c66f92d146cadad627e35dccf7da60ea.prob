@@ -1,0 +1,1 @@
+{"name":"Local: CHONDT","url":"c:\\Users\\quant\\OneDrive\\Desktop\\code\\btvn\\1111\\CHONDT.cpp","tests":[{"id":1762917847421,"input":"4\n1 0\n2 0\n3 0\n0 0\n\n","output":"1 0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\quant\\OneDrive\\Desktop\\code\\btvn\\1111\\CHONDT.cpp","group":"local","local":true}

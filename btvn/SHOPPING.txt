@@ -1,0 +1,76 @@
+/*
+                   hhhhhhh
+                   h:::::h
+                   h:::::h
+                   h:::::h
+ppppp   ppppppppp   h::::h hhhhh       uuuuuu    uuuuuu      ssssssssss
+p::::ppp:::::::::p  h::::hh:::::hhh    u::::u    u::::u    ss::::::::::s
+p:::::::::::::::::p h::::::::::::::hh  u::::u    u::::u  ss:::::::::::::s
+pp::::::ppppp::::::ph:::::::hhh::::::h u::::u    u::::u  s::::::ssss:::::s
+ p:::::p     p:::::ph::::::h   h::::::hu::::u    u::::u   s:::::s  ssssss
+ p:::::p     p:::::ph:::::h     h::::::hu::::u    u::::u     s::::::s
+ p:::::p     p:::::ph:::::h     h::::::hu::::u    u::::u        s::::::s
+ p:::::p    p::::::ph:::::h     h::::::hu:::::uuuu:::::u  ssssss   s:::::s
+ p:::::ppppp:::::::ph:::::h     h::::::hu:::::::::::::::uus:::::ssss::::::s
+ p::::::::::::::::p h:::::h     h:::::h u:::::::::::::::us::::::::::::::s
+ p::::::::::::::pp  h:::::h     h:::::h  uu::::::::uu:::u s:::::::::::ss
+ p::::::pppppppp    hhhhhhh     hhhhhhh    uuuuuuuu  uuuu  sssssssssss
+ p:::::p
+ p:::::p
+p:::::::p
+p:::::::p
+p:::::::p
+ppppppppp
+*/
+#include <bits/stdc++.h>
+using namespace std;
+#define task "SHOPPING"
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    if (fopen(task ".inp", "r"))
+    {
+        freopen(task ".inp", "r", stdin);
+        freopen(task ".out", "w", stdout);
+    }
+    int n;
+    long long s;
+    cin >> n >> s;
+    vector<long long> a(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    sort(a.begin() + 1, a.end());
+    vector<long long> pref(n + 1, 0);
+    for (int i = 1; i <= n; i++)
+        pref[i] = pref[i - 1] + a[i];
+    auto get_cost = [&](int l, int r) -> long long
+    {
+        int mid = (l + r) / 2;
+        long long shop = a[mid];
+        long long left = (long long)(mid - l + 1) * shop - (pref[mid] - pref[l - 1]);
+        long long right = (pref[r] - pref[mid]) - (long long)(r - mid) * shop;
+        return left + right;
+    };
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int L = i, R = n;
+        int best = i - 1;
+        while (L <= R)
+        {
+            int mid = (L + R) / 2;
+            if (get_cost(i, mid) <= s)
+            {
+                best = mid;
+                L = mid + 1;
+            }
+            else
+                R = mid - 1;
+        }
+        ans = max(ans, best - i + 1);
+    }
+    cout << ans;
+    return 0;
+}

@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define task "QBMAX"
+#define ll long long int
+#define pb push_back
+#define el "\n"
+#define vpll vector<pair<ll, ll>> 
+#define vll vector<long long>
+#define pii pair<int, int>
+#define pll pair<ll, ll>
+#define sll stack<ll>
+#define qll queue<ll>
+#define dqll deque<ll>
+#define pq priority_queue
+const ll N = 1e6 + 2;
+const ll M = 1e3 + 2;
+const ll MOD = 2111992;
+const ll INF = 1e9 + 7;
+ll n, m, a[M][M], dp[M][M];
+
+void tassk() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    if (fopen(task".inp", "r")) {
+        freopen(task".inp", "r", stdin);
+        freopen(task".out", "w", stdout);
+    }
+}
+void solve(){
+    cin >> m >> n;
+    memset(a, -0x3f, sizeof a);
+    for (int i = 1; i <= m; i++){
+        for (int j = 1; j <= n; j++){
+            cin >> a[i][j];
+        }
+    }
+    for (int i = 1; i <= m; i++) dp[1][i] = a[1][i];
+    for (int j = 2; j <= n; j++){
+        for (int i = 1; i <= m; i++){
+            dp[i][j] = max({dp[i - 1][j - 1], dp[i][j - 1], dp[i + 1][j - 1]}) + a[i][j];
+        }
+    }
+    ll maxs = -INF;
+    for (int i = 1; i <= m; i++) maxs = max(maxs, dp[i][n]);
+    cout << maxs << el;
+}   
+int main() {
+    tassk();
+    solve();
+    return 0;
+}

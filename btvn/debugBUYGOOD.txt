@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define task "BUYGOOD"
+#define el "\n"
+#define pb push_back
+typedef long long int ll;
+typedef long double ld;
+typedef vector<pair<ll, ll>> vpll;
+typedef vector<long long> vll;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
+typedef stack<ll> sll;
+typedef queue<ll> qll;
+typedef deque<ll> dqll;
+typedef priority_queue<ll> pqll;
+typedef long double ld;
+const ll N = 1e6 + 5;
+const ll M = 1e3 + 5;
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+
+int n, m;
+ll dp[N];
+struct item{
+    int w, p;
+};
+vector<item> items;
+
+void tassk() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    if (fopen(task".inp", "r")) {
+        freopen(task".inp", "r", stdin);
+        freopen(task".out", "w", stdout);
+    }
+}
+
+ll add(ll a, ll b){
+    a += b; if (a > MOD) a -= MOD; return a;
+}
+
+ll sub(ll a, ll b){
+    a -= b; if (a <= 0) a += MOD; return a;
+}
+
+ll mul(ll a, ll b){
+    return 1LL * a * b % MOD;
+}
+
+void solve() {
+    cin >> n >> m;  
+    for (int i = 1; i <= m; i++) {
+        int si, pi, wi;
+        cin >> si >> pi >> wi;
+        int k = 1;
+        while (si > 0) {
+            int cnt = min(k, si);
+            // Nếu lấy cnt sản phẩm, tổng giá: wi + cnt * pi
+            items.pb({cnt, wi + cnt * pi});
+            k <<= 1;
+            si -= cnt;
+        }
+    }
+
+    fill(dp, dp + N, INF);
+    dp[0] = 0;
+
+    for (auto [w, p] : items) {
+        for (int j = n; j >= w; j--) {
+            dp[j] = min(dp[j], dp[j - 1] + p);
+        }
+    }
+
+    cout << dp[n];
+}
+
+
+int main() {
+    tassk();
+    solve();
+    return 0;
+}
